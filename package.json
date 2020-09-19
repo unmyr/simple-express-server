@@ -4,7 +4,8 @@
   "description": "Minimal example using express, mocha and supertest.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "start": "node index.js",
+    "test": "mocha --exit test/test_*.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/unmyr/simple-express-server/issues"
   },
-  "homepage": "https://github.com/unmyr/simple-express-server#readme"
+  "homepage": "https://github.com/unmyr/simple-express-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.3",
+    "supertest": "^4.0.2"
+  }
 }

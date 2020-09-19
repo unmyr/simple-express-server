@@ -1,5 +1,7 @@
 == Install
 
+1. Install
++
 [source,shell-session]
 ----
 $ npm init
@@ -10,4 +12,134 @@ description: Minimal example using express, mocha and supertest.
 entry point: (index.js)
 test command: mocha
 ...
+$ npm install express
+...
+$ npm install --save-dev mocha supertest
+...
+$
+----
+
+2. Create index.js
++
+.index.js
+[source,javascript]
+----
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+
+module.exports = app;  // Needed for testing
+----
+
+3. add startup codes
++
+.package.json
+[source,diff]
+----
+   "description": "Minimal example using express, mocha and supertest.",
+   "main": "index.js",
+   "scripts": {
++    "start": "node index.js",
+     "test": "mocha"
+   },
+----
+
+4. Run server
++
+[source,shell-session]
+----
+$ npm start
+
+> simple-express-server@1.0.0 start .../simple-express-server
+> node index.js
+
+Example app listening at http://localhost:3000
+----
+If you open `http://localhost:3000` in your browser or 
+run the following command in another terminal, you will see `Hello World!`.
++
+[source,shell-session]
+----
+$ curl http://localhost:3000
+Hello World!
+----
+
+5. Press Ctrl-C to stop the server.
++
+[source,shell-session]
+----
+$ npm start
+
+> simple-express-server@1.0.0 start .../simple-express-server
+> node index.js
+
+Example app listening at http://localhost:3000
+^C
+$
+----
+
+6. add test codes
++
+[source,javascript]
+.test/test_index.js
+----
+const assert = require('assert');
+const supertest = require('supertest');
+
+const app = require("../index");
+
+describe("GET /", function() {
+  it("it should has status code 200", function(done) {
+    supertest(app)
+      .get("/")
+      .expect(200)
+      .end(function(err, res){
+        if (err) done(err);
+        assert.strictEqual(res.text, 'Hello World!');
+        done();
+      });
+  });
+});
+----
+
+7. Add startup codes for testing
++
+.package.json
+[source,diff]
+----
+   "description": "Minimal example using express, mocha and supertest.",
+   "main": "index.js",
+   "scripts": {
+     "start": "node index.js",
++    "test": "mocha --exit test/test_*.js"
+   },
+----
+
+8. Run tests
++
+[source,shell-session]
+----
+$  npm test
+
+> simple-express-server@1.0.0 test /home/guest/tmp_js/simple-express-server
+> mocha --exit test/test_*.js
+
+Example app listening at http://localhost:3000
+
+
+  GET /
+    ✓ it should has status code 200
+
+
+  1 passing (48ms)
+  
+$
 ----
