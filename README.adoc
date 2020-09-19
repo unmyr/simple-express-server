@@ -36,8 +36,9 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-module.exports = app;  // Needed for testing
+module.exports = app;  // <1>
 ----
+<1> Needed for testing
 
 3. add startup codes
 +
@@ -100,15 +101,17 @@ describe("GET /", function() {
   it("it should has status code 200", function(done) {
     supertest(app)
       .get("/")
-      .expect(200)
+      .expect(200) // <1>
       .end(function(err, res){
         if (err) done(err);
-        assert.strictEqual(res.text, 'Hello World!');
+        assert.strictEqual(res.text, 'Hello World!');  // <2>
         done();
       });
   });
 });
 ----
+<1> assert HTTP Status Code
+<2> assert responce body
 
 7. Add startup codes for testing
 +
@@ -142,4 +145,30 @@ Example app listening at http://localhost:3000
   1 passing (48ms)
   
 $
+----
+
+== sample codes
+
+.package.json
+[source,json]
+----
+{
+  "name": "express-example-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha --exit test/test_*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.3",
+    "supertest": "^4.0.2"
+  }
+}
 ----
