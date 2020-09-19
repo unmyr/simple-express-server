@@ -1,0 +1,19 @@
+{
+  "name": "simple-express-server",
+  "version": "1.0.0",
+  "description": "Minimal example using express, mocha and supertest.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unmyr/simple-express-server.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unmyr/simple-express-server/issues"
+  },
+  "homepage": "https://github.com/unmyr/simple-express-server#readme"
+}

@@ -1,0 +1,13 @@
+== Install
+
+[source,shell-session]
+----
+$ npm init
+...
+package name: (simple-express-server)
+version: (1.0.0)
+description: Minimal example using express, mocha and supertest.
+entry point: (index.js)
+test command: mocha
+...
+----
