@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const log4js = require('log4js');
 
@@ -12,7 +13,7 @@ app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
 
-const helloRouterV1 = require('./src/routes/v1/hello');
+const helloRouterV1 = require('./src/api/v1/hello');
 app.use('/api/v1', helloRouterV1);
 
 app.listen(port, () => {
