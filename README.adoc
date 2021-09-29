@@ -147,6 +147,23 @@ Example app listening at http://localhost:3000
 $
 ----
 
+== Execute API
+
+[source,console]
+.GET
+----
+$ curl -H "Accept: application/json" http://localhost:3000/api/v1/hello
+{"message":"Hello World! (GET)"}
+----
+
+[source,console]
+.POST
+----
+$ curl -X POST -H "Content-Type: application/json" -d '{"name": "foo"}' http://localhost:3000/api/v1/hello
+{"message":"Hello foo"}
+----
+
+
 == sample codes
 
 .package.json
