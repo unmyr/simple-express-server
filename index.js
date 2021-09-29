@@ -1,4 +1,3 @@
-const cors = require('cors');
 const express = require('express');
 const log4js = require('log4js');
 
@@ -8,6 +7,12 @@ logger.level = 'debug';
 const port = 3000;
 
 const app = express();
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 app.get('/', (_req, res) => {
   res.send('Hello World!');

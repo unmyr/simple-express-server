@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Call REST API</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <h1>Call REST API</h1>
+    <div id="app"></div>
+    <script>
+      const app = Vue.createApp({
+        template: `<hello />`
+      })
+      const useHello = () => {
+        const resMsg = Vue.ref('Hello ???');
+        const postMsg = async (data) => {
+          const response = await fetch(
+            "http://localhost:3000/api/v1/hello",
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({name: data}),
+            }
+          )
+          const resJson = await response.json() 
+          resMsg.value = resJson.message
+          console.log(resMsg)
+        }
+        return {
+          resMsg, postMsg
+        }
+      }
+
+      app.component('hello', {
+        template: `
+          <h1>Hello Vue3</h1>
+          <input type="text" v-model="message"/>
+          <div>*{{ resMsg }}*</div>
+          <button v-on:click="postMyMsg(message)">Send</button>
+          `,
+        setup() {
+          const message = Vue.ref('')
+          const { resMsg, postMsg } = useHello()
+          postMyMsg = (msg) => {
+            postMsg(msg)
+          }
+          return {
+            message,
+            resMsg,
+            postMyMsg
+          }
+        }
+      })
+      app.mount('#app')
+    </script>
+  </body>
+</html>
